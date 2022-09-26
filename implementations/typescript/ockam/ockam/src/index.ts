@@ -85,34 +85,36 @@ export function example3() {
   })
 }
 
-export function example4Initiator() {
-  let node = new Ockam.Node()
+export const example4 = {
+  initiator() {
+    let node = new Ockam.Node()
 
-  node.startWorker("app", new Printer())
-  node.createTcpTransport()
+    node.startWorker("app", new Printer())
+    node.createTcpTransport()
 
-  node.route({
-    onwardRoute: [
-      (TCP, "localhost:4000"),
-      "hopper",
-      (TCP, "localhots:4001"),
-      "echoer".
-    ],
-    returnRoute: ["app"],
-    payload: "hello",
-  })
-}
+    node.route({
+      onwardRoute: [
+        (Ockam.TCP, "localhost:4000"),
+        "hopper",
+        (Ockam.TCP, "localhots:4001"),
+        "printer",
+      ],
+      returnRoute: ["app"],
+      payload: "hello",
+    })
+  },
 
-export function example4Hopper() {
-  let node = new Ockam.Node()
+  hopper() {
+    let node = new Ockam.Node()
 
-  node.startWorker("hopper", new Hop())
-  node.createTcpTransport().listen("127.0.0.1:4000")
-}
+    node.startWorker("hopper", new Hop())
+    node.createTcpTransport() //.listen("127.0.0.1:4000")
+  },
 
-export function example4Echoer() {
-  let node = new Ockam.Node()
+  printer() {
+    let node = new Ockam.Node()
 
-  node.startWorker("echoer", new Echoer())
-  node.createTcpTransport().listen("127.0.0.1:4001")
+    node.startWorker("printer", new Printer())
+    node.createTcpTransport() //.listen("127.0.0.1:4001")
+  },
 }
