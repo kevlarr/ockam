@@ -84,3 +84,35 @@ export function example3() {
     payload: "hello",
   })
 }
+
+export function example4Initiator() {
+  let node = new Ockam.Node()
+
+  node.startWorker("app", new Printer())
+  node.createTcpTransport()
+
+  node.route({
+    onwardRoute: [
+      (TCP, "localhost:4000"),
+      "hopper",
+      (TCP, "localhots:4001"),
+      "echoer".
+    ],
+    returnRoute: ["app"],
+    payload: "hello",
+  })
+}
+
+export function example4Hopper() {
+  let node = new Ockam.Node()
+
+  node.startWorker("hopper", new Hop())
+  node.createTcpTransport().listen("127.0.0.1:4000")
+}
+
+export function example4Echoer() {
+  let node = new Ockam.Node()
+
+  node.startWorker("echoer", new Echoer())
+  node.createTcpTransport().listen("127.0.0.1:4001")
+}

@@ -1,4 +1,4 @@
-import { Address, Message, Router, LOCAL } from "./routing";
+import { Address, Message, Router, LOCAL, TCP } from "./routing";
 import { Worker, Context } from "./worker";
 
 export type NodeWorkerAddress = string | Uint8Array | [type: 0, value: string | Uint8Array];
