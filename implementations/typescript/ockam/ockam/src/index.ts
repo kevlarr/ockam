@@ -1,5 +1,7 @@
 import * as Ockam from "."
 
+import { sum } from "../ffi";
+
 export * from "./worker";
 export * from "./routing";
 export * from "./node";
@@ -117,4 +119,8 @@ export const example4 = {
     node.startWorker("printer", new Printer())
     node.createTcpTransport() //.listen("127.0.0.1:4001")
   },
+}
+
+export function example5() {
+  console.log(`4 + 5 = ${sum(4, 5)}`)
 }
